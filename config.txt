@@ -1,0 +1,40 @@
+The number of threads to plot with:
+plottingThreads=40
+
+The number of buckets to plot with:
+plottingBuckets=256
+
+The number of buckets for phase 3 and 4:
+(Specify false to not include the flag)
+plottingBuckets34=false
+
+Temp dir(s) or the directories to use for a working dir:
+(This is typically an SSD or multiple SSDs, if multiple are specified
+it will alternate between them.
+For multiple, seperate with a comma)
+plottingTempDirs=/mnt/ssd1,/mnt/ssd2
+
+Temp dir for RAM disk:
+(if you have one, if not specify false)
+plottingTempDirRAM=false
+
+Destination for finished plots:
+(if multiple are specified, the least empty one will be chosen)
+plottingDestinations=/mnt/hw_raid
+
+Whether to not to wait until the plots are moved before starting
+another plot:
+(true for yes, false for no)
+plottingWait=false
+
+Pool public key:
+plottingPoolPubKey=usIngGIB6bO&b*B7o&*Gno&GO*&B&B7g8oGNo7Tboo7o7gnpNG
+
+Job contract address:
+plottingContractAddress=BKGiNB&Ogno&GNgno8ngo8bf7PN*
+
+Farmer public key:
+plottingFarmerPubKey
+
+thread multiplier for phase 2:
+plottingThreadMultiplier=1

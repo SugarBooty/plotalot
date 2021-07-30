@@ -1,0 +1,15 @@
+test file
+test=true
+these are some config samples
+toUse=HDD1,HDD2
+
+nap=jsehmoeriufdhmgiouerahgiouernhg7o348ognr7nt407ng04gn497gf93qmg4a97n097nqr9-g4n-q493ng9e4nqg
+
+chia_plot \             
+                -n 1 \
+                -r 34 \
+                -u 256 \
+                -t /mnt/raid/ \
+                -d /mnt/hw_raid/ \
+                -c ngn48we7fgn8o7NGF8RWNWTEN8F7WO8FNWE7FO7NRIONNion9hn9n8m9 \
+                -f y7bt*N8n7nn87o8ob8&*O&nog87ngo87bgo87GNO*&ngOGNo87bgOgnBO*Go8NGo7N*&gnO&bo87GNOn*O&g&ng&GO&n
