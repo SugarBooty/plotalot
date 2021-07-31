@@ -1,3 +1,16 @@
+7-30-21
+made the log parser, it works as intended.
+Things to do:
+    - get the current phase the plot is on
+    - add a loop function to parse the logs and update the plot objects
+    - turn the log parser into a class
+
+Lickily the log gives you the PID of the plot, so I can get that from there
+
+
+7-29-21
+worked on the log parser, but ultimately didnt do much
+
 7-28-21
 I have made the code that makes multiple instnces of the plotjob class, figured out how to read from it, all that good stuff. Now I need to work on the plotjob class and making it run the chia command and all that.
 
