@@ -1,4 +1,5 @@
 #pragma once
+#include "../headers/logParser.hpp"
 
 #include <string>
 #include <array>
@@ -26,6 +27,8 @@ class PlotJob {
         void kill();
         // returns the config map of the plotJob
         configMap getConfigMap();
+        // parses the log file of the plot and updates data
+        bool parsePlotLog();
 
         void setPhase(struct phaseInfo info);
 
@@ -43,16 +46,8 @@ class PlotJob {
         configMap jobConfig;
         bool jobRestore;                            //if jobRestore = true, do not run the start command
         std::string logFile;                        //path to the log file of the plot 
-        struct phaseInfo {                          //plase and table its on (might not end up using this?)
-            int currentPhase;                       
-            int currentTable;
-            int phase1Duration;
-            int phase2Duration;
-            int phase3Duration;
-            int phase4Duration;
-            int totalDuration;
-            int movePlotDuration;
-        };
+
+        LogParser parser = LogParser();
 
     //plot arguments
         // int         jobThreads;                     //threads

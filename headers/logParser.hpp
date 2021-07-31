@@ -12,7 +12,8 @@ class LogParser {
     public:
         typedef std::optional< std::pair<std::string, std::string> > optionalLineInfo;
         typedef std::unordered_map<std::string, std::string> infoMap;
-        LogParser(std::string path);
+
+        void setPath(const std::string& path);
 
         infoMap parsePlotLog();
 
@@ -22,7 +23,7 @@ class LogParser {
 
 };
 
-LogParser::LogParser(std::string path) {
+void LogParser::setPath(const std::string& path) {
     logPath = path;
 }
 

@@ -1,8 +1,10 @@
 #include "../headers/PlotJob.hpp"
 #include "../headers/global_config.hpp"
+#include "../headers/logParser.hpp"
 
 #include <string>
 #include <stdexcept>
+
 
 // public methods
 
@@ -34,6 +36,11 @@ PlotJob::configMap PlotJob::getConfigMap() {
     return jobConfig;
 }
 
+bool PlotJob::parsePlotLog() {
+    // TODO add parsing functionality
+    // TODO add code to set config PID and other vars from log
+}
+
 // TODO add vars to store phase length info
 // TODO add setter functions for current phase and pahase length info
 // TODO add vars for total durations
@@ -63,6 +70,8 @@ std::string PlotJob::buildCommand() {
 
     // makes the output of the command go to the specified file, located where the command was run from
     command += " > " + logFile;
+
+    parser.setPath(logFile);
 
     jobConfig["localLogFile"] = logFile;
     jobConfig["localPlottingCommand"] = command;
