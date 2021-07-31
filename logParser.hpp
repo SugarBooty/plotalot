@@ -25,24 +25,13 @@ namespace logParser {
     };
 
 
-    infoMap parsePlotLog(std::string path) {
-        std::ifstream logFile (path);
-        std::string line;
-        infoMap durationInfo;
-        if ( logFile.is_open() ) {
-            while ( std::getline (logFile, line) ) {
-                optionalLineInfo lineInfo = parseLine(line);
-                durationInfo[lineInfo->first] = lineInfo->second;
-            }
-            return durationInfo;
-        }
-    }
+    
 
 
     optionalLineInfo parseLine(const std::string& line) {
-        std::istringstream issLine(line);           // makes a string stream from the line
-        std::vector<std::string> lineElements;      // initializes a vector of strings, this will be the string deliniated by spaces
-        std::string lineElement;                    // the element that is assigned the value in the while loop
+        std::istringstream issLine(line);                   // makes a string stream from the line
+        std::vector<std::string> lineElements;              // initializes a vector of strings, this will be the string deliniated by spaces
+        std::string lineElement;                            // the element that is assigned the value in the while loop
         while ( std::getline(issLine, lineElement, ' ') ) {
             lineElements.push_back(lineElement);
         }
@@ -117,5 +106,35 @@ namespace logParser {
             else if ( contains(line, "Phase 4") )
                 return std::make_pair( "phase4duration", lineElements[3] );
         }
+        // misc parsing
+        // sample
+        // Process ID: 1875915
+        // Plot Name: plot-k32-2021-07-21-23-23-2c74411717781715fe06bc62e7c2b62f4f51bab5d746c7ad4fb5536d0b867ead
+        // Total plot creation time was 1971.63 sec (32.8605 min)
+        // Copy to /mnt/hw_raid/plot-k32-2021-07-21-23-23-2c74411717781715fe06bc62e7c2b62f4f51bab5d746c7ad4fb5536d0b867ead.plot finished, took 175.608 sec, 591.056 MB/s avg.
+        if ( contains(line, "Process ID") )
+            return std::make_pair( "PID", lineElements[2] );
+        if ( contains(line, "Plot Name:") )
+            return std::make_pair( "plotname", lineElements[2] );
+        if ( contains(line, "Total plot creation time") )
+            return std::make_pair( "totalduration", lineElements[5] );
+        if ( contains(line, "Copy to") && contains(line, "finished") )
+            return std::make_pair( "moveduration", lineElements[5] );
+        
+        return std::nullopt;
+    }
+
+    infoMap parsePlotLog(std::string path) {
+        std::ifstream logFile(path);
+        std::string line;
+        infoMap durationInfo;
+        if ( logFile.is_open() ) {
+            while ( std::getline (logFile, line) ) {
+                optionalLineInfo lineInfo = parseLine(line);
+                if ( lineInfo )
+                    durationInfo[lineInfo->first] = lineInfo->second;
+            }
+        }
+        return durationInfo;
     }
 }

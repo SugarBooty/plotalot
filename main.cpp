@@ -1,23 +1,21 @@
-#include "Config.hpp"
-#include "plotJob.hpp"
+
+#include "logParser.hpp"
 
 #include <iostream>
+#include <filesystem>
 
 int main() {
-    std::cout << "2" << std::endl;
 
-    Config Config("config.txt");
-    Config::configMap localMap = Config.getMappedConfig();
+    // Config Config("config.txt");
+    // Config::configMap localMap = Config.getMappedConfig();
 
-    std::cout << "2" << std::endl;
+    std::unordered_map<std::string, std::string> mapbaby = logParser::parsePlotLog("samplePlotOutput.log");
+    for ( auto [key, val] : mapbaby ){
+        std::cout << "Key: " << std::setw(20) << key << " | Val: " << val << std::endl;
 
-    // for ( auto [key, valVec] : localMap ){
-    //     for ( auto val : valVec){
-    //     std::cout << "Key: " << key << " Val: " << val << std::endl;
+        
+    }
 
-    //     }
-    // }
-
-    Config.writeTest("test", "test.test");
+    // Config.writeTest("test", "test.test");
     return 0;
 }
