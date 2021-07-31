@@ -1,6 +1,6 @@
-#include "jobMan.hpp"
-#include "Config.hpp"
-#include "global_config.hpp"
+#include "../headers/JobMan.hpp"
+#include "../headers/Config.hpp"
+#include "../headers/global_config.hpp"
 
 #include <vector>
 #include <string>
@@ -24,7 +24,7 @@ void JobMan::_initRunningPlotsOnStart() {
 
 }
 
-bool JobMan::startNewJob(bool restore = false) {
+bool JobMan::startNewJob(bool restore) {
     // starts new plot job, appends the object to the running job vector, and makes a state file in the temp directory its plotting in
     individualConfig jobConfig = generateIndividualConfig();
     runningPlotJobVector.push_back( PlotJob(jobConfig) );
@@ -43,6 +43,10 @@ bool JobMan::restoreAllJobs() {
         runningPlotJobVector.push_back( PlotJob(extrapolatedConfig, true) );
         std::cout << "Restored running plot job state from file: " << stateFilePath << std::endl;
     }
+
+    // TODO
+
+    return true;
 }
 
 JobMan::individualConfig JobMan::generateIndividualConfig() {
@@ -165,5 +169,3 @@ std::vector<std::string> JobMan::findAllPlotJobStateFiles() {
     }
     return plotJobStatePaths;
 }
-
-

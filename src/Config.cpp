@@ -1,4 +1,4 @@
-#include "Config.hpp"
+#include "../headers/Config.hpp"
 
 #include <string>
 #include <unordered_map>
@@ -7,6 +7,7 @@
 #include <iostream>
 #include <sstream>
 #include <optional>
+#include <filesystem>
 
 // READ FUNCIONS
 
