@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Config.hpp"
-#include "plotJob.hpp"
+#include "PlotJob.hpp"
 
 #include <vector>
 #include <string>

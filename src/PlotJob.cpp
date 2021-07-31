@@ -1,12 +1,12 @@
-#include "plotJob.hpp"
-#include "global_config.hpp"
+#include "../headers/PlotJob.hpp"
+#include "../headers/global_config.hpp"
 
 #include <string>
 #include <stdexcept>
 
 // public methods
 
-PlotJob::PlotJob(configMap config, bool restore = false) {
+PlotJob::PlotJob(configMap config, bool restore) {
     jobConfig = config;
     jobRestore = restore;
 }
@@ -71,6 +71,8 @@ std::string PlotJob::buildCommand() {
 
 long PlotJob::runCommand(std::string command) {
 
+    // TODO
+    return 0;
 }
 
 
