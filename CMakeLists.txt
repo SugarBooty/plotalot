@@ -9,4 +9,4 @@ set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(${PROJECT_SOURCE_DIR})
-add_executable(plotalot test/main.cpp src/Config.cpp src/JobMan.cpp src/PlotJob.cpp src/LogParser.cpp)
+add_executable(plotalot test/main.cpp src/Config.cpp src/JobMan.cpp src/PlotJob.cpp src/LogParser.cpp src/SaveStats.cpp)

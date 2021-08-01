@@ -38,12 +38,3 @@ bool SaveStats::appendToFile(const infoMap& map, const std::string& path) {
         return false;
     }
 }
-
-std::string SaveStats::formatMap(const infoMap& map) const {
-    // this returns a formatted CSV style thingy
-    // KEY=VAL,KEY=VAL,KEY=VAL\n
-    std::string outputLine;
-    for ( auto [key, value] : map )
-        outputLine += key + "=" + value + ",";
-    return outputLine + "\n";
-}
