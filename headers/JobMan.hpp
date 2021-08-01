@@ -20,6 +20,8 @@ class JobMan {
 
 
     private:
+        individualConfig latestPlotConfigFile();
+
         // makes the individual config for the plot job, with the optimal dest and temp dir
         individualConfig generateIndividualConfig();
         // determines the temp drive for the next plot

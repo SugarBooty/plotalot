@@ -28,13 +28,17 @@ bool JobMan::startNewJob(bool restore) {
     // starts new plot job, appends the object to the running job vector, and makes a state file in the temp directory its plotting in
     individualConfig jobConfig = generateIndividualConfig();
     runningPlotJobVector.push_back( PlotJob(jobConfig) );
-    std::string path = jobConfig[config::TEMP_DIR] + jobConfig["jobID"] + ".pltjob";
+    std::string path = jobConfig[config::TEMP_DIR] + jobConfig["jobID"] + ".pltjob"; // TODO add jobID setter to plotjob
     if (config.createFileFromMap( jobConfig, path )) { // TODO use the PlotJob getter function to get config value map, as the construction of the object adds values to it
         std::cout << "Started new plot job, state file: " << path << std::endl;
     } else {
         std::cout << "Started new plot job, could not create state file. Check permissions!" << std::endl;
     }
     return true;
+}
+
+JobMan::individualConfig JobMan::latestPlotConfigFile() {
+    individualConfig lastStartedPlotJob = runningPlotJobVector[runningPlotJobVector.size()-1].getConfigMap();
 }
 
 bool JobMan::restoreAllJobs() {

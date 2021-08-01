@@ -1,12 +1,12 @@
 
-#include "../headers/headers.hpp"
 
 #include <iostream>
 #include <filesystem>
+#include <ctime>
 
 int main() {
 
-    std::cout << "Test Start" << std::endl;
+    std::cout << std::time(nullptr) << std::endl;
 
     //Config Config("config.txt");
     //Config::configMap localMap = Config.getMappedConfig();
@@ -21,5 +21,5 @@ int main() {
     //}
 
     // Config.writeTest("test", "test.test");
-    //return 0;
+    return 0;
 }

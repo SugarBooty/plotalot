@@ -1,3 +1,5 @@
+#pragma once
+
 #include <map>
 #include <string>
 #include <filesystem>
@@ -8,20 +10,20 @@ class SaveStats {
     public:
         typedef std::map<std::string, std::string> infoMap;
         // saves data to the stats file upon a completed plot
-        SaveStats(std::string path, infoMap map);
+        SaveStats(const std::string& path, const infoMap& map);
 
     private:
         // appends to the stats file
-        bool appendToFile(infoMap map, std::string path);
+        bool appendToFile(const infoMap& map, const std::string& path);
         // returns a string of formatted map data
-        std::string formatMap(infoMap);
+        std::string formatMap(const infoMap&) const;
 };
 
-SaveStats::SaveStats(std::string path, infoMap map) {
+SaveStats::SaveStats(const std::string& path, const infoMap& map) {
     appendToFile(map, path);
 }
 
-bool SaveStats::appendToFile(infoMap map, std::string path) {
+bool SaveStats::appendToFile(const infoMap& map, const std::string& path) {
     std::ofstream statsFile;
     statsFile.open(path, std::ios::app);
     if ( !statsFile ){
@@ -37,7 +39,7 @@ bool SaveStats::appendToFile(infoMap map, std::string path) {
     }
 }
 
-std::string SaveStats::formatMap(infoMap map) {
+std::string SaveStats::formatMap(const infoMap& map) const {
     // this returns a formatted CSV style thingy
     // KEY=VAL,KEY=VAL,KEY=VAL\n
     std::string outputLine;

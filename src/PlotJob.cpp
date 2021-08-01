@@ -4,6 +4,8 @@
 
 #include <string>
 #include <stdexcept>
+#include <memory>
+#include <ctime>
 
 
 // public methods
@@ -15,7 +17,12 @@ PlotJob::PlotJob(configMap config, bool restore) {
 
 void PlotJob::begin() {
     if ( !jobRestore ) {
-        jobConfig["localPID"] = runCommand( buildCommand() );
+        jobConfig["jobStartTime"] = std::time(nullptr);
+        runCommand( buildCommand() );
+        parsePlotLog();
+    } else {
+        parser.setPath(getVal("localLogFile"));
+        parsePlotLog();
     }
 
 }
@@ -37,22 +44,14 @@ PlotJob::configMap PlotJob::getConfigMap() {
 }
 
 bool PlotJob::parsePlotLog() {
-    // TODO add parsing functionality
-    // config map values from log:
-    //      - PID
-    //      - last phase and table
-    //      - plot name
-
     logInfo = parser.parsePlotLog();
     jobConfig["PID"] = logInfo["PID"];
     jobConfig["plotname"] = logInfo["plotname"];
-    jobConfig["currentphase"] = std::prev(logInfo.end())->first;
+    jobConfig["currentphase"] = logInfo["laststate"];
+    return true;
 }
 
-// TODO add vars to store phase length info
-// TODO add vars for total durations
 // TODO add object killing function
-// TODO figure out how to store statistics to persist if plotalot dies and can be restared with plot jobs restored
 
 // private methods
 
@@ -85,9 +84,20 @@ std::string PlotJob::buildCommand() {
     return command;
 }
 
-long PlotJob::runCommand(std::string command) {
+bool PlotJob::runCommand(const std::string& command) {
+    // TODO implement starting the command (kinda done?)
 
-    // TODO
+    std::array<char, 512> buffer;
+    std::string result;
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), "r"), pclose);
+    if (!pipe) {
+        throw std::runtime_error("popen() failed!");
+    }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        result += buffer.data();
+    }
+    std::cout << result << std::endl;
+
     return 0;
 }
 

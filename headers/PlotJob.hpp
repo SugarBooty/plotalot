@@ -31,8 +31,8 @@ class PlotJob {
         configMap getConfigMap();
         // parses the log file of the plot and updates data
         bool parsePlotLog();
-
-        void setPhase(struct phaseInfo info);
+        // returns the current phase and table
+        std::string getPhase();
 
 
 
@@ -40,17 +40,17 @@ class PlotJob {
 
         // builds the command to run chia_plot given the arguments
         std::string buildCommand();
-
-        long runCommand(std::string command);
-
+        // runs the plotting command
+        bool runCommand(const std::string& command);
+        // gets a value from the config map
         std::string getVal(const std::string& key);
 
         configMap jobConfig;
         bool jobRestore;                            //if jobRestore = true, do not run the start command
         std::string logFile;                        //path to the log file of the plot 
 
-        LogParser parser = LogParser();
-        infoMap logInfo;
+        LogParser parser;             // log parser object, reads the log file and returns critical info
+        infoMap logInfo;                            // all the info returned from the log file, in a neat little map
 
     //plot arguments
         // int         jobThreads;                     //threads
