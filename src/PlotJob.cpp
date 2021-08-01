@@ -38,11 +38,18 @@ PlotJob::configMap PlotJob::getConfigMap() {
 
 bool PlotJob::parsePlotLog() {
     // TODO add parsing functionality
-    // TODO add code to set config PID and other vars from log
+    // config map values from log:
+    //      - PID
+    //      - last phase and table
+    //      - plot name
+
+    logInfo = parser.parsePlotLog();
+    jobConfig["PID"] = logInfo["PID"];
+    jobConfig["plotname"] = logInfo["plotname"];
+    jobConfig["currentphase"] = std::prev(logInfo.end())->first;
 }
 
 // TODO add vars to store phase length info
-// TODO add setter functions for current phase and pahase length info
 // TODO add vars for total durations
 // TODO add object killing function
 // TODO figure out how to store statistics to persist if plotalot dies and can be restared with plot jobs restored

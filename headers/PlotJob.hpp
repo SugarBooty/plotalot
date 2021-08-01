@@ -4,6 +4,7 @@
 #include <string>
 #include <array>
 #include <unordered_map>
+#include <map>
 #include <vector>
 
 
@@ -15,6 +16,7 @@
 class PlotJob {
     public:
         typedef std::unordered_map<std::string, std::string> configMap;
+        typedef std::map<std::string, std::string> infoMap;
 
         PlotJob(configMap config, bool restore = false);
         // begins plotting
@@ -48,6 +50,7 @@ class PlotJob {
         std::string logFile;                        //path to the log file of the plot 
 
         LogParser parser = LogParser();
+        infoMap logInfo;
 
     //plot arguments
         // int         jobThreads;                     //threads
