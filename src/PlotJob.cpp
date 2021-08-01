@@ -43,6 +43,8 @@ PlotJob::configMap PlotJob::getConfigMap() {
     return jobConfig;
 }
 
+// TODO add start time into the stats returned
+
 bool PlotJob::parsePlotLog() {
     logInfo = parser.parsePlotLog();
     jobConfig["PID"] = logInfo["PID"];

@@ -16,7 +16,7 @@
 class PlotJob {
     public:
         typedef std::unordered_map<std::string, std::string> configMap;
-        typedef std::map<std::string, std::string> infoMap;
+        typedef std::unordered_map<std::string, std::string> infoMap;
 
         PlotJob(configMap config, bool restore = false);
         // begins plotting

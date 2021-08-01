@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <unordered_map>
 #include <string>
 #include <filesystem>
 #include <fstream>
@@ -8,7 +9,7 @@
 
 class SaveStats {
     public:
-        typedef std::map<std::string, std::string> infoMap;
+        typedef std::unordered_map<std::string, std::string> infoMap;
         // saves data to the stats file upon a completed plot
         SaveStats(const std::string& path, const infoMap& map);
 
@@ -16,25 +17,5 @@ class SaveStats {
         // appends to the stats file
         bool appendToFile(const infoMap& map, const std::string& path);
         // returns a string of formatted map data
-        std::string formatMap(const infoMap&) const;
+        std::string formatMap(infoMap) const;
 };
-
-SaveStats::SaveStats(const std::string& path, const infoMap& map) {
-    appendToFile(map, path);
-}
-
-bool SaveStats::appendToFile(const infoMap& map, const std::string& path) {
-    std::ofstream statsFile;
-    statsFile.open(path, std::ios::app);
-    if ( !statsFile ){
-        std::string valueString;
-
-        statsFile << formatMap(map) << std::endl;
-        
-        statsFile.close();
-        return true;
-    } else {
-        std::cout << "stats file could not be appended to " << path << std::endl;
-        return false;
-    }
-}
