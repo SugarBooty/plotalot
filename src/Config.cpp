@@ -64,7 +64,7 @@ Config::optionalConfigEntry Config::parseLine(const std::string& line) const {
 
 // this is what runs to read the config file line by line
 Config::configMap Config::parseConfigFile() const {
-    std::ifstream configFile (configPath);
+    std::ifstream configFile(configPath);
     std::string line;
     configMap returnMap;
     if ( configFile.is_open() ) {
@@ -79,6 +79,7 @@ Config::configMap Config::parseConfigFile() const {
         return returnMap;
     }
     else
+        std::cout << "Config path: " << configPath << std::endl;
         throw(std::invalid_argument("Config file invalid!") );
 }
 
@@ -144,7 +145,7 @@ bool Config::createFileFromMap(const configMap& map, const std::string& path) {
 bool Config::createFileFromMap(const configMapSingle& map, const std::string& path) {
     std::ofstream plotJobConfigFile;
     plotJobConfigFile.open(path);
-    if ( !plotJobConfigFile ){
+    if ( plotJobConfigFile ){
         for (auto [configKey, configValue] : map) {
             plotJobConfigFile << configKey << "=" << configValue << std::endl;
         }

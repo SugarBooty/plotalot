@@ -12,7 +12,7 @@ Temp dir(s) or the directories to use for a working dir:
 (This is typically an SSD or multiple SSDs, if multiple are specified
 it will alternate between them.
 For multiple, seperate with a comma)
-plottingTempDirs=/mnt/ssd1,/mnt/ssd2
+plottingTempDirs=/mnt/raid
 
 Temp dir for RAM disk:
 (if you have one, if not specify false)

@@ -7,12 +7,7 @@
 #include <fstream>
 #include <iostream>
 
-
-SaveStats::SaveStats(const std::string& path, const infoMap& map) {
-    appendToFile(map, path);
-}
-
-bool SaveStats::appendToFile(const infoMap& map, const std::string& path) {
+SaveStats::SaveStats(const infoMap& map, const fs::path& path) {
     std::ofstream statsFile;
     statsFile.open(path, std::ios::app);
     if ( statsFile ){
@@ -21,10 +16,8 @@ bool SaveStats::appendToFile(const infoMap& map, const std::string& path) {
         statsFile << formatMap(map) << std::endl;
         
         statsFile.close();
-        return true;
     } else {
         std::cout << "stats file could not be appended to " << path << std::endl;
-        return false;
     }
 }
 

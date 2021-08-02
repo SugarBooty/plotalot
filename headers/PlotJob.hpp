@@ -18,7 +18,7 @@ class PlotJob {
         typedef std::unordered_map<std::string, std::string> configMap;
         typedef std::unordered_map<std::string, std::string> infoMap;
 
-        PlotJob(configMap config, bool restore = false);
+        PlotJob(configMap& config, bool restore = false);
         // begins plotting
         void begin();
         // suspends the plotting process
@@ -26,7 +26,7 @@ class PlotJob {
         // resumes the suspended plot
         void resume();
         // kills a plot and clears its files
-        void kill();
+        void killPlot();
         // returns the config map of the plotJob
         configMap getConfigMap();
         // parses the log file of the plot and updates data
@@ -40,8 +40,9 @@ class PlotJob {
 
         // builds the command to run chia_plot given the arguments
         std::string buildCommand();
+        void forkStart();
         // runs the plotting command
-        bool runCommand(const std::string& command);
+        bool runCommand();
         // gets a value from the config map
         std::string getVal(const std::string& key);
 

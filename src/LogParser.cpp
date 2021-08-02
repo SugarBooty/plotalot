@@ -8,22 +8,33 @@
 #include <map>
 #include <sstream>
 #include <vector>
+#include <filesystem>
+#include <stdexcept>
 
-void LogParser::setPath(const std::string& path) {
-    logPath = path;
+namespace fs = std::filesystem;
+
+// TODO make functions use fs::path instead of strings to push absolute paths in
+void LogParser::setPath(const fs::path& path) {
+    if ( path.has_filename() )
+        logPath = path;
+    else
+        throw(std::invalid_argument("LogParser recieved directory instead of filesystem: " + path.string()));
 }
 
 LogParser::infoMap LogParser::parsePlotLog() {
     std::ifstream logFile(logPath);
+    std::cout << "parser logPath: " << logPath << std::endl;
     std::string line;
     infoMap durationInfo;
     std::string lastKey;
     if ( logFile.is_open() ) {
-        while ( std::getline (logFile, line) ) {
+        while ( std::getline (logFile, line, '\n') ) {
+            std::cout << "logfile line: " << line << std::endl;
             optionalLineInfo lineInfo = parseLine(line);
-            if ( lineInfo )
+            if ( lineInfo.has_value() ) {
                 durationInfo[lineInfo->first] = lineInfo->second;
                 lastKey = lineInfo->first;
+            }
         }
         durationInfo["laststate"] = lastKey;
     }

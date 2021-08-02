@@ -28,17 +28,18 @@ bool JobMan::startNewJob(bool restore) {
     // starts new plot job, appends the object to the running job vector, and makes a state file in the temp directory its plotting in
     individualConfig jobConfig = generateIndividualConfig();
     runningPlotJobVector.push_back( PlotJob(jobConfig) );
-    std::string path = jobConfig[config::TEMP_DIR] + jobConfig["jobID"] + ".pltjob"; // TODO add jobID setter to plotjob
-    if (config.createFileFromMap( jobConfig, path )) { // TODO use the PlotJob getter function to get config value map, as the construction of the object adds values to it
-        std::cout << "Started new plot job, state file: " << path << std::endl;
-    } else {
+    fs::path statePath = fs::path(jobConfig[config::TEMP_DIR]) / (jobConfig["jobStartTime"] + ".pltjob"); // TODO add jobID setter to plotjob
+    if (config.createFileFromMap( lastJobGetConfig(), statePath ))
+        std::cout << "Started new plot job, state file: " << statePath << std::endl;
+    else
         std::cout << "Started new plot job, could not create state file. Check permissions!" << std::endl;
-    }
+
     return true;
 }
 
-JobMan::individualConfig JobMan::latestPlotConfigFile() {
-    individualConfig lastStartedPlotJob = runningPlotJobVector[runningPlotJobVector.size()-1].getConfigMap();
+JobMan::individualConfig JobMan::lastJobGetConfig() {
+    // runningPlotJobVector[runningPlotJobVector.size()-1].begin();
+    return runningPlotJobVector[runningPlotJobVector.size()-1].getConfigMap();
 }
 
 bool JobMan::restoreAllJobs() {
@@ -48,7 +49,7 @@ bool JobMan::restoreAllJobs() {
         std::cout << "Restored running plot job state from file: " << stateFilePath << std::endl;
     }
 
-    // TODO
+    // TODO add job restore
 
     return true;
 }
@@ -77,6 +78,7 @@ JobMan::individualConfig JobMan::generateIndividualConfig() {
 
     outputConfig[config::TEMP_DIR] = optimalTempDrive;
     outputConfig[config::DEST_DIR] = optimalDestDrive;
+    // outputConfig["jobStartTime"] = std::to_string(std::time(nullptr));
 
     return outputConfig;
 }

@@ -20,7 +20,7 @@ class JobMan {
 
 
     private:
-        individualConfig latestPlotConfigFile();
+        individualConfig lastJobGetConfig();
 
         // makes the individual config for the plot job, with the optimal dest and temp dir
         individualConfig generateIndividualConfig();
@@ -38,7 +38,7 @@ class JobMan {
         std::vector<std::string> findAllPlotJobStateFiles();
 
         // member config class object
-        Config config = Config("config.txt");
+        Config config = Config("/home/chia/Documents/plotalot_dev/test/config.txt"); // TODO generate absolute path
 
         // a vector that stores all running instances of plot jobs
         std::vector< PlotJob > runningPlotJobVector;
